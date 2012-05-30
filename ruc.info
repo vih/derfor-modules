@@ -1,0 +1,4 @@
+name = RUC
+package = RUC
+core = 7.x
+description = "Function for RUC (derfor.ruc.dk)"
