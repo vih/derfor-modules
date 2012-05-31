@@ -128,6 +128,13 @@ function ruc_videoes_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Videoer';
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Blok */
+  $handler = $view->new_display('block', 'Blok', 'block_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $translatables['ruc_videoer'] = array(
     t('Master'),
     t('Videoer fra Roskilde Universitet'),
@@ -142,6 +149,7 @@ function ruc_videoes_views_default_views() {
     t('Forskydning'),
     t('<a href="node/[nid]">[field_ruc_video_thumb]</a>'),
     t('Page'),
+    t('Blok'),
   );
   $export['ruc_videoer'] = $view;
 
