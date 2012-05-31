@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the RUC Answers feature.
+ */
+
+include_once 'ruc_answers.features.inc';
