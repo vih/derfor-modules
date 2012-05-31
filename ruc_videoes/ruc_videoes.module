@@ -5,3 +5,122 @@
  */
 
 include_once 'ruc_videoes.features.inc';
+
+/**
+ * @file
+ * Adds formatter to display the videos
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ *
+ * Adds formatter to display videoes on Derfor RUC
+ */
+function ruc_videoes_field_formatter_info() {
+  return array(
+    // the key must be unique, so it's best to prefix with your module's name.
+    'ruc_videoes_video' => array(
+      // the label is is what is displayed in the select box in the UI.
+      'label' => t('RUC video formatter'),
+      // field types is the important bit!! List the field types your formatter is for.
+      'field types' => array('link_field'),
+      // You can usually leave 'multiple values' as follows:
+      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view(). This code just passes straight
+ * through to a theme function, MYMODULE_formatter_FORMATTER
+ * (e.g. MYMODULE_formatter_MYMODULE_absolute_url).
+ */
+function ruc_videoes_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $elements = array();
+  foreach ($items as $delta => $item) {
+    $elements[$delta] = array(
+      '#markup' => theme('ruc_videoes_formatter_'. $display['type'], array('element' => $item, 'field' => $instance)),
+    );
+  }
+  return $elements;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ruc_videoes_theme() {
+  return array(
+    // The theme function that our formatter uses:
+    'ruc_videoes_formatter_ruc_videoes_video' => array(
+      // Don't forget that all Drupal 7 theme functions have only one argument,
+      // so you declare what variables get passed within that argument instead.
+      // See http://drupal.org/node/224333#theme_changes
+      'variables' => array('element' => NULL),
+    ),
+  );
+}
+ 
+/**
+ * Theme function for 'MYMODULE_video' link field formatter.
+ */
+function theme_ruc_videoes_formatter_ruc_videoes_video($element) {
+  // height and width for the videoes
+  $height = 370;
+  $width = 560;
+
+  $url = parse_url($element['element']['url']);
+ 
+  if ($url === false) {
+    return '';
+  }
+ 
+  if (!empty($url['host'])) {
+    $host = check_plain($url['host']);
+  } 
+  
+  switch ($host) {
+    case 'www.youtube.com':
+    case 'youtube.com':
+      // getting video id
+      $youtube_url = parse_url($element['element']['display_url']);
+      parse_str($youtube_url['query'], $youtube_querystring);
+      $id = check_plain($youtube_querystring['v']);
+      
+      return '<iframe width="' . $width . '" height="' . $height . '" src="http://www.youtube.com/embed/' . $id . '" frameborder="0" allowfullscreen></iframe>';
+      break;
+    case 'ructube.appinux.com':
+      $content = file_get_contents($element['element']['display_url']);
+
+      $dom = new domDocument;
+      // get the HTML (suppress errors)
+      @$dom->loadHTML($content);
+      $dom->preserveWhiteSpace = false;
+      $links = $dom->getElementsByTagName('features_download');
+      foreach ($links as $tag) {
+        $link = $tag->firstChild;
+        $ructube_player_url = $link->getAttribute('href');
+      }
+
+      if (!isset($ructube_player_url)) {
+        return '';
+      } 
+      
+      // getting video id
+      $id = substr($ructube_player_url, 0, -4);
+      $id = substr($id, strlen('http://ructube.appinux.com/uploads/'));
+      $id = check_plain($id);
+      return '<embed 
+        src="http://ructube.appinux.com/flvplayer.swf" 
+        width="' . $width . '" 
+        height="' . $height . '" 
+        bgcolor="FFFFFF" 
+        allowscriptaccess="always" 
+        allowfullscreen="false" 
+        wmode="transparent" 
+        flashvars="file=http://ructube.appinux.com/uploads/' . $id . '.flv&image=http://ructube.appinux.com/uploads/player_thumbs/' . $id . '.jpg&backgcolor=FFFFFF&stretching=fill&skin=http://ructube.appinux.com/skins/Snel.swf&autostart=true&fullscreen=&logo=http://ructube.appinux.com/images/playerlogos/logo-player.png&icons=false&link=' . $element['element']['url'] . '&linktarget=_self&displayclick=link"></embed>';
+      break;
+    default:
+      return '';
+      break;
+  }
+}

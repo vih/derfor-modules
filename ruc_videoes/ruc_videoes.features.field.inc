@@ -10,49 +10,47 @@
 function ruc_videoes_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-ruc_video-field_ruc_video'
-  $fields['node-ruc_video-field_ruc_video'] = array(
+  // Exported field: 'node-ruc_video-field_ruc_video_link'
+  $fields['node-ruc_video-field_ruc_video_link'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_ruc_video',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'module' => 'file',
+      'field_name' => 'field_ruc_video_link',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'link',
       'settings' => array(
-        'display_default' => 0,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
       ),
       'translatable' => '0',
-      'type' => 'file',
+      'type' => 'link_field',
     ),
     'field_instance' => array(
       'bundle' => 'ruc_video',
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Link til videoer på enten Youtube eller Ructube.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
-          'module' => 'file_entity',
-          'settings' => array(
-            'file_view_mode' => 'media_large',
-          ),
-          'type' => 'file_rendered',
-          'weight' => '0',
+          'module' => 'ruc_videoes',
+          'settings' => array(),
+          'type' => 'ruc_videoes_video',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -62,42 +60,34 @@ function ruc_videoes_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_ruc_video',
-      'label' => 'Video',
+      'field_name' => 'field_ruc_video_link',
+      'label' => 'Video link',
       'required' => 0,
       'settings' => array(
-        'description_field' => 0,
-        'file_directory' => '',
-        'file_extensions' => 'txt',
-        'max_filesize' => '',
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => '',
+          'target' => 'default',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'none',
+        'title_maxlength' => '128',
+        'title_value' => '',
+        'url' => 0,
         'user_register_form' => FALSE,
+        'validate_url' => 1,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'media',
-        'settings' => array(
-          'allowed_schemes' => array(
-            'public' => 'public',
-            'youtube' => 'youtube',
-          ),
-          'allowed_types' => array(
-            'audio' => 0,
-            'default' => 0,
-            'image' => 0,
-            'video' => 'video',
-          ),
-          'browser_plugins' => array(
-            'library' => 'library',
-            'media_default--media_browser_1' => 0,
-            'media_default--media_browser_my_files' => 0,
-            'media_internet' => 'media_internet',
-            'upload' => 0,
-            'youtube' => 0,
-          ),
-          'progress_indicator' => 'throbber',
-        ),
-        'type' => 'media_generic',
-        'weight' => '-3',
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '-1',
       ),
     ),
   );
@@ -155,7 +145,7 @@ function ruc_videoes_field_default_fields() {
       'label' => 'Video thumbnail',
       'required' => 0,
       'settings' => array(
-        'description_field' => 1,
+        'description_field' => 0,
         'file_directory' => 'videothumbs',
         'file_extensions' => 'jpg jpeg png',
         'max_filesize' => '',
@@ -175,7 +165,8 @@ function ruc_videoes_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Video');
+  t('Link til videoer på enten Youtube eller Ructube.');
+  t('Video link');
   t('Video thumbnail');
 
   return $fields;
