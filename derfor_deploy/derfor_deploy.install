@@ -1,0 +1,114 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * See http://dcycleproject.org/node/43
+ */
+function derfor_deploy_install() {
+  for ($i = 7000; $i < 8000; $i++) {
+    $candidate = 'derfor_deploy_update_' . $i;
+    if (function_exists($candidate)) {
+      $candidate();
+    }
+  }
+}
+
+/**
+*  Revert specified features.
+ *
+ * @TODO Check that it really is Forced features revert. Currently an exact
+ * copy of the function initially placed in feature_projects.install.
+ *
+ * @link http://definitivedrupal.org/erratum/reverting-features-update-hooks-requires-helper-function
+ *
+ * Code mostly taken from drush.
+ */
+function _derfor_deploy_features_revert($modules) {
+  module_load_include('inc', 'features', 'features.export');
+  features_include();
+  foreach ($modules as $module) {
+    if (($feature = feature_load($module, TRUE)) && module_exists($module)) {
+      $components = array();
+      // Forcefully revert all components of a feature.
+      foreach (array_keys($feature->info['features']) as $component) {
+        if (features_hook($component, 'features_revert')) {
+          $components[] = $component;
+        }
+      }
+    }
+    foreach ($components as $component) {
+      features_revert(array($module => array($component)));
+    }
+  }
+}
+
+/**
+ * Setting the theme.
+ */
+function derfor_deploy_update_7000() {
+  // Setting for date api.
+  variable_set('date_first_day', 1);
+
+  $theme = 'derforruc';
+  $admin_theme = 'seven';
+
+  // Enable standard theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $theme)
+    ->execute();
+
+  // Disable bartik.
+  db_update('system')
+    ->fields(array('status' => 0))
+    ->condition('type', 'theme')
+    ->condition('name', 'responsive_bartik')
+    ->execute();
+
+  variable_set('theme_default', $theme);
+
+  // Enable the admin theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $admin_theme)
+    ->execute();
+  variable_set('admin_theme', $admin_theme);
+  variable_set('node_admin_theme', '1');
+  variable_set('media_dialog_theme', 'seven');
+}
+
+/**
+ * File entity settings.
+ */
+function derfor_deploy_update_7001() {
+  variable_set('file_entity_max_filesize', '5 MB');
+  variable_set('file_entity_file_upload_wizard_skip_scheme', 1);
+}
+
+
+/**
+ * Settings for transliteration.
+ */
+function derfor_deploy_update_7002() {
+  module_enable(array('transliteration'));
+  if (module_exists('pathauto')) {
+    if (module_exists('transliteration')) {
+      variable_set('pathauto_transliterate', 1);
+    }
+    variable_set('pathauto_reduce_ascii', 1);
+  }
+}
+
+/**
+ * Enabled VIH modules.
+ */
+function derfor_deploy_update_7003() {
+  module_enable(array('ruc_answers'));
+  module_enable(array('ruc_videoes'));
+}
