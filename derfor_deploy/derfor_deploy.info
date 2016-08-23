@@ -5,4 +5,5 @@ package = "Derfor"
 project = "derfor_deploy"
 version = "7.x-0.1"
 
+dependencies[] = block
 dependencies[] = toolbar
