@@ -1,15 +1,15 @@
 <?php
 /**
  * @file
- * Code for the RUC Answers feature.
+ * Code for the RUC Pictures feature.
  */
 
-include_once 'ruc_answers.features.inc';
+include_once 'ruc_pictures.features.inc';
 
 /**
  * Implements hook_migrate_api().
  */
-function ruc_answers_migrate_api() {
+function ruc_pictures_migrate_api() {
   $api = array(
     'api' => 2,
     'groups' => array(
@@ -18,7 +18,7 @@ function ruc_answers_migrate_api() {
       ),
     ),
     'migrations' => array(
-      'RUCQuestionNode' => array('class_name' => 'RUCQuestionNode', 'group_name' => 'RUCMigrate'),
+      'RUCPictureNode' => array('class_name' => 'RUCPictureNode', 'group_name' => 'RUCMigrate'),
     ),
   );
 

@@ -1,0 +1,12 @@
+name = RUC Pages
+core = 7.x
+package = Derfor
+version = 7.x-1.0
+project = ruc_pages
+dependencies[] = features
+dependencies[] = field_sql_storage
+dependencies[] = node
+dependencies[] = text
+features[features_api][] = api:1
+features[field][] = node-page-field_content
+features[node][] = page
