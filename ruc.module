@@ -1,82 +1,99 @@
 <?php
+/**
+ * @file
+ */
 
-
-function ruc_get_current_question() {
-	$sql = "SELECT
-		n.nid, n.title, f.field_question_value as question
-		FROM node n
-		INNER JOIN field_data_field_question f ON f.entity_type = 'node' AND f.bundle = 'question' AND f.entity_id = n.nid
-		WHERE n.type = 'question' AND n.status = 1
-		ORDER BY n.created DESC LIMIT 1";
-	$result = db_query($sql);
-	return $result->fetchObject();
-}
-
-
+/**
+ * Implements hook_menu().
+ *
+ * @return mixed
+ */
 function ruc_menu() {
-	$items['svar/%'] = array(
-		'title' => 'Svar på spørgsmål',
-		'type' => MENU_NORMAL_ITEM,
-		'page callback' => 'ruc_get_ansvar_form',
+  $items['svar/%'] = array(
+    'title' => 'Svar på spørgsmål',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'ruc_get_ansvar_form',
     'page arguments' => array(1),
-    'access callback' => true,
-	);
-	return $items;
+    'access callback' => TRUE,
+  );
+  return $items;
 }
 
-function ruc_form_alter(&$form, &$form_state, $form_id) { 
-	if($form_id == 'answer_node_form' && arg(0) == 'svar') {
-		$sql = "SELECT
+/**
+ * Implements hook_form_alter().
+ */
+function ruc_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'answer_node_form' && arg(0) == 'svar') {
+    $sql = "SELECT
 			n.nid, f.field_question_value as question
 			FROM node n
 			INNER JOIN field_data_field_question f ON f.entity_type = 'node' AND f.bundle = 'question' AND f.entity_id = n.nid
 			WHERE n.type = 'question' AND n.status = 1
 			ORDER BY n.created DESC LIMIT 1";
-		$result = db_query($sql);
-		$r = $result->fetchObject();
-		
-		$form['qtext'] = array('#markup'=>'<h3>'.$r->question.'</h3><br />','#weight'=>-101);
-		
-		//$form['teaser'] = array('#markup'=>'<h2>Kære RUC,</h2>','#weight'=>-100);
-		$form['field_answer']['und'][0]['#title'] = '';
-		$form['field_question_reference']['und']['#default_value'] = arg(1);
-		$form['field_question_reference']['und']['#access'] = false;
-		
-		$form['additional_settings']['#access'] = false;
-		$form['revision_information']['#access'] = false;
-		$form['author']['#access'] = false;
-		$form['options']['#access'] = false;
-		
-		$form['field_answer']['und'][0]['#description'] = '<strong>Vær opmærksom på, at dit navn og stilling er synlig på dit svar.</strong>';
-		$form['actions']['#weight'] = 100;
-		
-		$form['actions']['submit']['#value'] = 'Indsend svar';
-	
-	}
-	elseif($form_id == 'search_block_form') {
-		//var_dump($form);
-		$form['search_block_form']['#title'] = '';
-		$form['search_block_form']['#attributes']['class'][] = 'search-query';
-		$form['search_block_form']['#attributes']['placeholder'] = 'Søg';
-		//$form['actions']['#access'] = false;
-		//unset($form['actions']);
-		//var_dump($form);
-	}
+    $result = db_query($sql);
+    $r = $result->fetchObject();
+
+    $form['qtext'] = array(
+      '#markup' => '<h3>' . $r->question . '</h3><br />',
+      '#weight' => -101
+    );
+
+    $form['field_answer'][LANGUAGE_NONE][0]['#title'] = '';
+    $form['field_question_reference'][LANGUAGE_NONE]['#default_value'] = arg(1);
+    $form['field_question_reference'][LANGUAGE_NONE]['#access'] = FALSE;
+
+    $form['additional_settings']['#access'] = FALSE;
+    $form['revision_information']['#access'] = FALSE;
+    $form['author']['#access'] = FALSE;
+    $form['options']['#access'] = FALSE;
+
+    $form['field_answer'][LANGUAGE_NONE][0]['#description'] = '<strong>Vær opmærksom på, at dit navn og stilling er synlig på dit svar.</strong>';
+    $form['actions']['#weight'] = 100;
+
+    $form['actions']['submit']['#value'] = 'Indsend svar';
+
+  }
+  elseif ($form_id == 'search_block_form') {
+    $form['search_block_form']['#title'] = '';
+    $form['search_block_form']['#attributes']['class'][] = 'search-query';
+    $form['search_block_form']['#attributes']['placeholder'] = 'Søg';
+  }
 }
 
+/**
+ * Gets answer form.
+ *
+ * @return string
+ */
 function ruc_get_ansvar_form() {
-	global $user;
-	if(empty($user->uid)) {
-		$o = '<h1>Log ind</h1>';
-		$o.= '<p>For at svare på dette spørgsmål skal du være logget ind</p>';
-		$o.= '<p>Du kan logge ind med din normale RUC brugernavn og password.</p>';
-		$o.= '<p><a href="'.url('cas',array('query'=>array('destination'=>$_GET['q']))).'" class="greybtn"><span></span>Log ind</a></p>';
-		return $o;
-	} 
-	else {
-		module_load_include('inc', 'node', 'node.pages');
-		$form = node_add('answer');
-		$output = drupal_render($form);
-		return $output;
-	}
+  global $user;
+  if (empty($user->uid)) {
+    $o = '<h1>Log ind</h1>';
+    $o .= '<p>For at svare på dette spørgsmål skal du være logget ind</p>';
+    $o .= '<p>Du kan logge ind med din normale RUC brugernavn og password.</p>';
+    $o .= '<p><a href="' . url('cas', array('query' => array('destination' => $_GET['q']))) . '" class="greybtn"><span></span>Log ind</a></p>';
+    return $o;
+  }
+  else {
+    module_load_include('inc', 'node', 'node.pages');
+    $form = node_add('answer');
+    $output = drupal_render($form);
+    return $output;
+  }
+}
+
+/**
+ * Gets the current object.
+ *
+ * @return mixed
+ */
+function ruc_get_current_question() {
+  $sql = "SELECT
+		n.nid, n.title, f.field_question_value as question
+		FROM node n
+		INNER JOIN field_data_field_question f ON f.entity_type = 'node' AND f.bundle = 'question' AND f.entity_id = n.nid
+		WHERE n.type = 'question' AND n.status = 1
+		ORDER BY n.created DESC LIMIT 1";
+  $result = db_query($sql);
+  return $result->fetchObject();
 }
