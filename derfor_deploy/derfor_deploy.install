@@ -92,17 +92,28 @@ function derfor_deploy_update_7001() {
 }
 
 /**
- * Enabled VIH modules.
+ * Enabled LoginToBoggan.
  */
 function derfor_deploy_update_7002() {
   module_enable(array("logintoboggan"));
   variable_set('logintoboggan_login_with_email', 1);
   variable_set('logintoboggan_unified_login', 1);
+  variable_set('logintoboggan_user_email_verification', 1);
+  variable_set('logintoboggan_immediate_login_on_register', 1);
+  variable_set('logintoboggan_site_403', 'toboggan/denied');
+  variable_set('logintoboggan_login_successful_message', 1);
+}
+
+/**
+ * Enabled Translation.
+ */
+function derfor_deploy_update_7003() {
+  module_enable(array('locale'));
 }
 
 /**
  * Enabled VIH modules.
  */
-function derfor_deploy_update_7003() {
+function derfor_deploy_update_7004() {
   module_enable(array('ruc_answers', "ruc_pictures"));
 }
