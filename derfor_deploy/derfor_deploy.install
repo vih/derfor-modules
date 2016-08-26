@@ -108,12 +108,12 @@ function derfor_deploy_update_7002() {
  * Enabled Translation.
  */
 function derfor_deploy_update_7003() {
-  module_enable(array('locale'));
+  module_enable(array('locale', 'l10n_update'));
 }
 
 /**
  * Enabled VIH modules.
  */
 function derfor_deploy_update_7004() {
-  module_enable(array('ruc_answers', "ruc_pictures"));
+  module_enable(array('ruc_answers', "ruc_pictures", "ruc_pages"));
 }
