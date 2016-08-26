@@ -10,7 +10,7 @@
 function ruc_answers_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-answer-field_answer'
+  // Exported field: 'node-answer-field_answer'.
   $fields['node-answer-field_answer'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function ruc_answers_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -79,7 +80,7 @@ function ruc_answers_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-answer-field_question_reference'
+  // Exported field: 'node-answer-field_question_reference'.
   $fields['node-answer-field_question_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -100,6 +101,7 @@ function ruc_answers_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -167,7 +169,7 @@ function ruc_answers_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-question-field_question'
+  // Exported field: 'node-question-field_question'.
   $fields['node-question-field_question'] = array(
     'field_config' => array(
       'active' => '1',
@@ -188,6 +190,7 @@ function ruc_answers_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
