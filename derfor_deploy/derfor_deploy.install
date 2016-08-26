@@ -96,6 +96,8 @@ function derfor_deploy_update_7001() {
  */
 function derfor_deploy_update_7002() {
   module_enable(array("logintoboggan"));
+  variable_set('logintoboggan_login_with_email', 1);
+  variable_set('logintoboggan_unified_login', 1);
 }
 
 /**
