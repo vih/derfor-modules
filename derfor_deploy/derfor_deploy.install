@@ -91,30 +91,16 @@ function derfor_deploy_update_7001() {
   variable_set('file_entity_file_upload_wizard_skip_scheme', 1);
 }
 
-
 /**
- * Settings for transliteration.
+ * Enabled VIH modules.
  */
 function derfor_deploy_update_7002() {
-  module_enable(array('transliteration'));
-  if (module_exists('pathauto')) {
-    if (module_exists('transliteration')) {
-      variable_set('pathauto_transliterate', 1);
-    }
-    variable_set('pathauto_reduce_ascii', 1);
-  }
+  module_enable(array("logintoboggan"));
 }
 
 /**
  * Enabled VIH modules.
  */
-function derfor_deploy_update_7004() {
-  module_enable(array('scheduler', "logintoboggan"));
-}
-
-/**
- * Enabled VIH modules.
- */
-function derfor_deploy_update_7005() {
+function derfor_deploy_update_7003() {
   module_enable(array('ruc_answers', "ruc_pictures"));
 }
