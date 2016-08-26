@@ -69,9 +69,8 @@ function ruc_get_ansvar_form() {
   global $user;
   if (empty($user->uid)) {
     $o = '<h1>Log ind</h1>';
-    $o .= '<p>For at svare på dette spørgsmål skal du være logget ind</p>';
-    $o .= '<p>Du kan logge ind med din normale RUC brugernavn og password.</p>';
-    $o .= '<p><a href="' . url('cas', array('query' => array('destination' => $_GET['q']))) . '" class="greybtn"><span></span>Log ind</a></p>';
+    $o .= '<p>For at svare på dette spørgsmål skal du være logget ind.</p>';
+    $o .= '<p><a href="' . url('user', array('query' => array('destination' => $_GET['q']))) . '" class="greybtn"><span></span>Log ind</a> <a href="' . url('user/register', array('query' => array('destination' => $_GET['q']))) . '" class="greybtn"><span></span>Opret konto</a> <a href="' . url('user/password', array('query' => array('destination' => $_GET['q']))) . '"><span></span>Glemt mine loginoplysninger</a></p>';
     return $o;
   }
   else {
