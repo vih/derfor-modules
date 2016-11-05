@@ -10,7 +10,7 @@
 function ruc_videoes_views_default_views() {
   $export = array();
 
-  $view = new view;
+  $view = new view();
   $view->name = 'ruc_videoer';
   $view->description = 'Video page for RUC Derfor.';
   $view->tag = 'RUC';
@@ -23,6 +23,7 @@ function ruc_videoes_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Videoer fra Roskilde Universitet';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'mere';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -38,82 +39,45 @@ function ruc_videoes_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Antal elementer';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Alle -';
   $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Forskydning';
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['view_mode'] = 'full';
-  $handler->display->display_options['row_options']['links'] = 0;
-  $handler->display->display_options['row_options']['comments'] = 0;
-  /* Felt: Indhold: Nid */
+  $handler->display->display_options['row_options']['links'] = FALSE;
+  /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
-  /* Felt: Indhold: Video thumbnail */
+  /* Field: Content: Video thumbnail */
   $handler->display->display_options['fields']['field_ruc_video_thumb']['id'] = 'field_ruc_video_thumb';
   $handler->display->display_options['fields']['field_ruc_video_thumb']['table'] = 'field_data_field_ruc_video_thumb';
   $handler->display->display_options['fields']['field_ruc_video_thumb']['field'] = 'field_ruc_video_thumb';
   $handler->display->display_options['fields']['field_ruc_video_thumb']['label'] = '';
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['text'] = '<a href="node/[nid]">[field_ruc_video_thumb]</a>';
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_ruc_video_thumb']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_ruc_video_thumb']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_ruc_video_thumb']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_ruc_video_thumb']['settings'] = array(
     'file_view_mode' => 'media_original',
   );
-  $handler->display->display_options['fields']['field_ruc_video_thumb']['field_api_classes'] = 0;
-  /* Sorteringskriterie: Indhold: Oprettelsesdato */
+  /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filterkriterie: Indhold: Udgivet */
+  /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filterkriterie: Indhold: Type */
+  /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -139,7 +103,7 @@ function ruc_videoes_views_default_views() {
     t('Master'),
     t('Videoer fra Roskilde Universitet'),
     t('mere'),
-    t('Udfør'),
+    t('Apply'),
     t('Gendan'),
     t('Sortér efter'),
     t('Stigende'),
@@ -147,8 +111,13 @@ function ruc_videoes_views_default_views() {
     t('Antal elementer'),
     t('- Alle -'),
     t('Forskydning'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
     t('<a href="node/[nid]">[field_ruc_video_thumb]</a>'),
     t('Page'),
+    t('more'),
     t('Blok'),
   );
   $export['ruc_videoer'] = $view;

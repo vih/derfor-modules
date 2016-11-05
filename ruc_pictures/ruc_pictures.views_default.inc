@@ -87,6 +87,19 @@ function ruc_pictures_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'billeder';
+  $translatables['billeder'] = array(
+    t('Master'),
+    t('Billeder fra Roskilde Universitet'),
+    t('mere'),
+    t('Udfør'),
+    t('Gendan'),
+    t('Sortér efter'),
+    t('Stigende'),
+    t('Faldende'),
+    t('<a href="[field_picture]" rel="lightbox">[field_picture_thumb]</a>'),
+    t('Page'),
+    t('more'),
+  );
   $export['billeder'] = $view;
 
   $view = new view();
@@ -150,6 +163,17 @@ function ruc_pictures_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $translatables['random_billede'] = array(
+    t('Master'),
+    t('mere'),
+    t('Udfør'),
+    t('Gendan'),
+    t('Sortér efter'),
+    t('Stigende'),
+    t('Faldende'),
+    t('Block'),
+    t('more'),
+  );
   $export['random_billede'] = $view;
 
   return $export;

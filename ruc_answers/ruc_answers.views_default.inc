@@ -95,6 +95,26 @@ function ruc_answers_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '3';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $translatables['nyeste_svar'] = array(
+    t('Master'),
+    t('Nyeste svar'),
+    t('mere'),
+    t('Apply'),
+    t('Gendan'),
+    t('Sortér efter'),
+    t('Stigende'),
+    t('Faldende'),
+    t('Antal elementer'),
+    t('- Alle -'),
+    t('Forskydning'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Page'),
+    t('more'),
+    t('Blok'),
+  );
   $export['nyeste_svar'] = $view;
 
   $view = new view();
@@ -183,6 +203,27 @@ function ruc_answers_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $translatables['popul_re_svar'] = array(
+    t('Master'),
+    t('Populære svar'),
+    t('mere'),
+    t('Apply'),
+    t('Gendan'),
+    t('Sortér efter'),
+    t('Stigende'),
+    t('Faldende'),
+    t('Antal elementer'),
+    t('- Alle -'),
+    t('Forskydning'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('counter'),
+    t('Page'),
+    t('more'),
+    t('Blok'),
+  );
   $export['popul_re_svar'] = $view;
 
   $view = new view();
@@ -245,6 +286,18 @@ function ruc_answers_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'tidligere_spoergsmaal';
+  $translatables['tidligere_sp_rgsm_l'] = array(
+    t('Master'),
+    t('Tidligere spørgsmål'),
+    t('mere'),
+    t('Apply'),
+    t('Gendan'),
+    t('Sortér efter'),
+    t('Stigende'),
+    t('Faldende'),
+    t('Page'),
+    t('more'),
+  );
   $export['tidligere_sp_rgsm_l'] = $view;
 
   return $export;

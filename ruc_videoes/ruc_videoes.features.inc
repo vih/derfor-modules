@@ -7,8 +7,8 @@
 /**
  * Implements hook_views_api().
  */
-function ruc_videoes_views_api() {
-  return array("version" => "3.0");
+function ruc_videoes_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**
@@ -20,7 +20,7 @@ function ruc_videoes_flag_default_flags() {
   $flags['videolike'] = array(
     'content_type' => 'node',
     'title' => 'Video Like',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'ruc_video',
     ),
@@ -34,18 +34,20 @@ function ruc_videoes_flag_default_flags() {
     'link_type' => 'normal',
     'roles' => array(
       'flag' => array(
-        0 => '2',
-        1 => '3',
+        0 => 2,
+        1 => 3,
       ),
       'unflag' => array(
-        0 => '2',
-        1 => '3',
+        0 => 2,
+        1 => 3,
       ),
     ),
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
+    'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'show_contextual_link' => FALSE,
     'i18n' => 0,
     'module' => 'ruc_videoes',
     'locked' => array(
@@ -54,6 +56,7 @@ function ruc_videoes_flag_default_flags() {
     'api_version' => 2,
   );
   return $flags;
+
 }
 
 /**
@@ -70,5 +73,6 @@ function ruc_videoes_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

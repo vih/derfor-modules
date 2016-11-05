@@ -7,8 +7,8 @@
 /**
  * Implements hook_views_api().
  */
-function ruc_answers_views_api() {
-  return array("version" => "3.0");
+function ruc_answers_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**
@@ -20,7 +20,7 @@ function ruc_answers_flag_default_flags() {
   $flags['answeragree'] = array(
     'content_type' => 'node',
     'title' => 'Jeg er enig',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'answer',
     ),
@@ -34,7 +34,7 @@ function ruc_answers_flag_default_flags() {
     'link_type' => 'normal',
     'roles' => array(
       'flag' => array(
-        0 => '2',
+        0 => 2,
       ),
       'unflag' => array(),
     ),
@@ -77,5 +77,6 @@ function ruc_answers_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }
